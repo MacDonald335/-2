@@ -1,6 +1,9 @@
 #include "stm32f10x.h"                  // Device header
 
-
+// Fallback: ensure TIM1_UP_IRQn is defined (IRQ number 25 for STM32F10x)
+#ifndef TIM1_UP_IRQn
+#define TIM1_UP_IRQn   25
+#endif
 
 void Timer_Init(void)
 {

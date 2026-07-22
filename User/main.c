@@ -4,6 +4,7 @@
 #include "LED.h"
 #include "Timer.h"
 #include "Key.h"
+#include "MPU6050.h"
 
     //int main(void)
    // {   //OLED以及LED测试
@@ -61,65 +62,91 @@
 
 
 
-//定时器测试
+//定时器测试以及非阻塞按键
 
-uint16_t Count;
-uint8_t KeyNum,Num;
+// uint16_t Count;
+// uint8_t KeyNum,Num;
+// int main(void)
+// {
+// 	OLED_Init();
+// 	Timer_Init();
+// 	Key_Init();
+
+
+
+// 	while (1)
+// 	{
+// 		KeyNum = Key_GetNum();
+// 		if (KeyNum == 1)
+// 		{
+// 			Num ++;
+// 		}
+
+// 		if (KeyNum == 2)
+// 		{
+// 			Num --;
+// 		}
+
+// 		if (KeyNum == 3)
+// 		{
+// 			Num +=10;
+// 		}
+
+// 		if (KeyNum == 4)
+// 		{
+// 			Num -=10;
+// 		}
+
+// 		OLED_Printf(0,0,OLED_8X16,"Count:%05d",Count);
+// 		OLED_Printf(0,16,OLED_8X16,"Num:%03d",Num);
+// 		OLED_Update();
+// 	}
+
+
+// }
+
+// void TIM1_UP_IRQHandler(void)
+// {
+// 	if (TIM_GetITStatus(TIM1, TIM_IT_Update) == SET)
+// 	{
+// 		Count++;
+
+// 		Key_Tick();
+// 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
+// 	}
+// }
+
+
+// MPU6050测试
+int16_t AX,AY,AZ,GX,GY,GZ;
+
 int main(void)
 {
+	
 	OLED_Init();
-	Timer_Init();
-	Key_Init();
+	MPU6050_Init();
 
 
 
-	while (1)
+	while(1)
 	{
-		KeyNum = Key_GetNum();
-		if (KeyNum == 1)
-		{
-			Num ++;
-		}
+		MPU6050_GetData(&AX,&AY,&AZ,&GX,&GY,&GZ);
 
-		if (KeyNum == 2)
-		{
-			Num --;
-		}
-
-		if (KeyNum == 3)
-		{
-			Num +=10;
-		}
-
-		if (KeyNum == 4)
-		{
-			Num -=10;
-		}
-
-		OLED_Printf(0,0,OLED_8X16,"Count:%05d",Count);
-		OLED_Printf(0,16,OLED_8X16,"Num:%03d",Num);
+		OLED_Printf(0,0,OLED_8X16,"%+06d",AX);
+		OLED_Printf(0,16,OLED_8X16,"%+06d",AY);
+		OLED_Printf(0,32,OLED_8X16,"%+06d",AZ);
+		OLED_Printf(64,0,OLED_8X16,"%+06d",GX);
+		OLED_Printf(64,16,OLED_8X16,"%+06d",GX);
+		OLED_Printf(64,32,OLED_8X16,"%+06d",GX);
 		OLED_Update();
+
+
+
 	}
 
 
+
 }
-
-void TIM1_UP_IRQHandler(void)
-{
-	if (TIM_GetITStatus(TIM1, TIM_IT_Update) == SET)
-	{
-		Count++;
-
-		Key_Tick();
-		TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
-	}
-}
-
-
-
-
-
-
 
 
 
