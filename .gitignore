@@ -1,0 +1,50 @@
+# Keil MDK / ARM Compiler
+*.uvoptx
+*.uvguix.*
+*.uvgui.*
+*.dep
+*.axf
+*.htm
+*.lnp
+*.sct
+*.crf
+*.d
+*.o
+*.iex
+*.bak
+*.scvd
+*.dbgconf
+
+# Build output
+Objects/
+Listings/
+DebugConfig/
+
+# IDE
+*.uvproj.*.bak
+*.uvopt.*
+*.plg
+*.rpt
+
+# JLink
+JLink*.log
+JLink*.txt
+JLinkSettings.ini
+*.jlink
+
+# Ozone
+Ozone*.log
+Ozone*.txt
+
+# OS
+Thumbs.db
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+
+.vscode/
